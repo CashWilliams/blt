@@ -7,7 +7,7 @@
       </filterchain>
     </copy>
     <mkdir dir="${repo.root}/box" mode="755"/>
-    <exec dir="${repo.root}" command="composer require --dev geerlingguy/drupal-vm:^3.1" logoutput="true" checkreturn="true"/>
+    <exec dir="${repo.root}" command="composer require --dev geerlingguy/drupal-vm:~3.1" logoutput="true" checkreturn="true"/>
     <copy file="${repo.root}/scripts/drupal-vm/config.yml" tofile="${repo.root}/box/config.yml">
       <filterchain>
         <expandproperties />
