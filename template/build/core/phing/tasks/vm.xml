@@ -16,7 +16,7 @@
     <copy file="${repo.root}/scripts/drupal-vm/Vagrantfile" todir="${repo.root}"/>
     <!-- Sadly this wipes out comments in the file. -->
     <exec dir="${repo.root}" command="${composer.bin}/drupal yaml:update:value ${repo.root}/project.yml drush.default_alias '${project.machine_name}.local'" logoutput="true" checkreturn="true"/>
-    <exec dir="${repo.root}" command="${composer.bin}/drupal yaml:update:value ${repo.root}/project.yml drush.local '${project.machine_name}.local'" logoutput="true" checkreturn="true"/>
+    <exec dir="${repo.root}" command="${composer.bin}/drupal yaml:update:value ${repo.root}/project.yml drush.aliases.local '${project.machine_name}.local'" logoutput="true" checkreturn="true"/>
     <exec dir="${repo.root}" command="${composer.bin}/drupal yaml:update:value ${repo.root}/build/custom/phing/build.yml drush.root ''" logoutput="true" checkreturn="true"/>
   </target>
 

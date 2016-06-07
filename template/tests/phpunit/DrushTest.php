@@ -30,7 +30,7 @@ class DrushTest extends TestBase {
       print "Executing \"$command\" in $dir \n";
       // If it contains the local URI, we know it is correctly loading
       // drushrc.php.
-      $this->assertContains($this->config['local.hostname'], shell_exec($command));
+      $this->assertContains($this->config['project.local.hostname'], shell_exec($command));
     }
   }
 
