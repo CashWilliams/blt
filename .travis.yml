@@ -10,6 +10,7 @@ cache:
   apt: true
   directories:
   - "$HOME/.composer/cache"
+  - "$HOME/.console"
   - "$HOME/.drush/cache"
   - "$HOME/.nvm"
   - "vendor"
@@ -39,6 +40,8 @@ before_install:
 install:
   - composer install
   - export PATH=$TRAVIS_BUILD_DIR/vendor/bin:$PATH
+  # Initialize drupal consile default configuration.
+  - drupal init
 
 before_script:
   # Clear drush release history cache, to pick up new releases.
@@ -49,12 +52,21 @@ before_script:
 script:
   # Generate a new 'blted' project.
   - ./blt.sh configure
+  # The local.hostname must be set to 127.0.0.1:8888 because we are using drush runserver to run the site on Travis CI.
+  - drupal yaml:update:value project.yml project.local.hostname '127.0.0.1:8888'
+  # Output contents of project.yml.
+  - cat project.yml
   - ./blt.sh create
   # Call targets in the new 'blted' project.
   - ../blted8/blt.sh ci:build:validate:test -Dcreate_alias=false -Dbehat.run-server=true -Dbehat.launch-phantom=true
+  # Debug:
+  - cat ../blted8/docroot/sites/default/settings/default.local.settings.php
+  - cat ../blted8/docroot/sites/default/settings/local.settings.php
+  - cat ../blted8/docroot/sites/default/default.local.drushrc.php
+  - cat ../blted8/docroot/sites/default/local.drushrc.php
   # Deploy build artifact.
   - ../blted8/blt.sh deploy:artifact:build -Ddeploy.commitMsg="Automated commit by Travis CI for Build ${TRAVIS_BUILD_ID}" -Ddeploy.branch="8.x-build"
-  # Add Drupal VM config to repo.
+  # Add Drupal VM config to repo. Do this only after drupal has been installed, as it changes the default alias.
   - ../blted8/blt.sh vm:init
   # Validate and run 'blt' phpunit tests.
   - phpcs --standard=../blted8/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml tests

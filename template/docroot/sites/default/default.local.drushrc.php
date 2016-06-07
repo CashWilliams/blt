@@ -4,4 +4,4 @@
  * Local drush configuration for this project.
  */
 
-$options['uri'] = '${project.local_uri}';
+$options['uri'] = '${project.local.protocol}//${project.local.hostname}';

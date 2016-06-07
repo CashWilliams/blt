@@ -19,4 +19,5 @@
     <exec dir="${repo.root}" command="${composer.bin}/drupal yaml:update:value ${repo.root}/project.yml drush.local '${project.machine_name}.local'" logoutput="true" checkreturn="true"/>
     <exec dir="${repo.root}" command="${composer.bin}/drupal yaml:update:value ${repo.root}/build/custom/phing/build.yml drush.root ''" logoutput="true" checkreturn="true"/>
   </target>
+
 </project>

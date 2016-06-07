@@ -17,7 +17,9 @@ project:
   # These are random strings used to configure the hash salt.
   hash_salt: ${project.hash_salt}
   # This will be used as the local uri for all developers.
-  local_uri: ${project.machine_name}.localhost
+  local:
+    protocol: http
+    hostname: ${project.machine_name}.localhost
 
 # Configuration settings for new git repository.
 git:
